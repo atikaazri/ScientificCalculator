@@ -57,7 +57,53 @@ public class ScientificCalculator {
         return num1 / num2;
      }
     // --- Scientific Math Methods ---
-    // public static double calculateSquareRoot(...) { ... }
-    // public static double calculatePower(...) { ... }
-    // public static double calculateSine(...) { ... }
+     public static double calculateSquareRoot(double num) {
+        return Math.sqrt(num);
+     }
+     public static double calculatePower(double base, double exponent) {
+        return Math.pow(base, exponent);
+
+     }
+     public static double calculateSine(double degrees) {
+        return Math.sin(Math.toRadians(degrees));
+     }
+    public static double calculateCosine(double degrees) {
+        return Math.cos(Math.toRadians(degrees));
+    }
+    public static double calculateTangent(double degrees) {
+        return Math.tan(Math.toRadians(degrees));
+    }
+    public static double calculateNaturalLogarithm(double num){
+        return Math.log(num);
+    }
+
+    public static double calculateLogarithmBase10(double num){
+        return Math.log10(num);
+    }
+    public static double absolute(double num){
+        return Math.abs(num);
+    }
+    public static long roundNumber(double num){
+        return Math.round(num);
+    }
+    public static double ceilingNumber(double num){
+        return Math.ceil(num);
+    }
+    public static double
+    floorNumber(double num){
+        return Math.floor(num);
+    }
+    public static double findMin(double
+
+                                         num1, double num2){
+        return Math.min(num1, num2);
+    }
+    public static double
+
+    findMax(double num1, double
+            num2){
+        return Math.max(num1, num2);
+    }
+
+
 }
