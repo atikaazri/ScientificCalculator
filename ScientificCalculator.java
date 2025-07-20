@@ -213,13 +213,24 @@ public class ScientificCalculator {
 
     private static void performDivision() {
         List<Double> nums = readNumbers(2);
+        while (nums.get(1) == 0) {
+            System.out.println("Error: Denominator cannot be zero. Please re-enter the numbers.");
+            nums = readNumbers(2);
+        }
         System.out.println("Result: " + divide(nums.get(0), nums.get(1)));
     }
 
+
     private static void performSquareRoot() {
-        double num = getValidDouble(scanner, "Enter the number: ");
-        System.out.println("Result: " + calculateSquareRoot(num));
+        List<Double> nums = readNumbers(1);
+        while (nums.get(0) < 0) {
+            System.out.println("Error: Cannot calculate square root of a negative number. Please try again.");
+            nums = readNumbers(1);
+        }
+        System.out.println("Result: " + calculateSquareRoot(nums.get(0)));
     }
+
+
 
     private static void performPower() {
         List<Double> nums = readNumbers(2);
@@ -242,14 +253,24 @@ public class ScientificCalculator {
     }
 
     private static void performNaturalLog() {
-        double num = getValidDouble(scanner, "Enter the number: ");
-        System.out.println("Result: " + calculateNaturalLogarithm(num));
+        List<Double> nums = readNumbers(1);
+        while (nums.get(0) <= 0) {
+            System.out.println("Error: Natural logarithm is only defined for positive numbers. Please try again.");
+            nums = readNumbers(1);
+        }
+        System.out.println("Result: " + calculateNaturalLogarithm(nums.get(0)));
     }
 
     private static void performLogBase10() {
-        double num = getValidDouble(scanner, "Enter the number: ");
-        System.out.println("Result: " + calculateLogarithmBase10(num));
+        List<Double> nums = readNumbers(1);
+        while (nums.get(0) <= 0) {
+            System.out.println("Error: Log base 10 is only defined for positive numbers. Please try again.");
+            nums = readNumbers(1);
+        }
+        System.out.println("Result: " + calculateLogarithmBase10(nums.get(0)));
     }
+
+
 
     private static void performAbsolute() {
         double num = getValidDouble(scanner, "Enter the number: ");
