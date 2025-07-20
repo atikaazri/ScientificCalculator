@@ -1,88 +1,140 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class ScientificCalculator {
     //declare constants
-
+    static Scanner scanner = new Scanner(System.in); //to use it in main + funcs
     public static void main(String args[]) {
         // main loop
         int exit = 18;  //temp just because its changing as i'm adding funcs
-        displayMenu();
-        Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
+
+
+        int choice = getValidMenuChoice();
         while (choice != exit) {
             switch (choice) {
                 case 1:
-                    System.out.println(add(1, 2));
+                    performAddition();
                     break;
                 case 2:
-                    System.out.println(subtract(3, 1));
+                    performSubtraction();
                     break;
                 case 3:
-                    System.out.println(multiply(1, 3));
+                    performMultiplication();
                     break;
                 case 4:
-                    System.out.println(divide(4, 2));
+                    performDivision();
                     break;
                 case 5:
-                    System.out.println(calculateSquareRoot(16));
+                    performSquareRoot();
                     break;
                 case 6:
-                    System.out.println(calculatePower(2, 3));
+                    performPower();
                     break;
                 case 7:
-                    System.out.println(calculateSine(30));
+                    performSine();
                     break;
                 case 8:
-                    System.out.println(calculateCosine(60));
+                    performCosine();
                     break;
                 case 9:
-                    System.out.println(calculateTangent(45));
+                    performTangent();
                     break;
                 case 10:
-                    System.out.println(calculateNaturalLogarithm(2.71828));
+                    performNaturalLog();
                     break;
                 case 11:
-                    System.out.println(calculateLogarithmBase10(100));
+                    performLogBase10();
                     break;
                 case 12:
-                    System.out.println(absolute(-9));
+                    performAbsolute();
                     break;
                 case 13:
-                    System.out.println(roundNumber(3.6));
+                    performRound();
                     break;
                 case 14:
-                    System.out.println(ceilingNumber(3.2));
+                    performCeiling();
                     break;
                 case 15:
-                    System.out.println(floorNumber(3.8));
+                    performFloor();
                     break;
                 case 16:
-                    System.out.println(findMin(5, 9));
+                    performMinimum();
                     break;
                 case 17:
-                    System.out.println(findMax(5, 9));
+                    performMaximum();
                     break;
                 default:
                     System.out.println("Error, choose a valid item from the menu");
                     break;
             }
 
-            displayMenu();
-            choice = scanner.nextInt();
+            choice = getValidMenuChoice();
+
+
         }
+    }
+    public static int getValidMenuChoice() {
+        int choice = -1;
+
+        while (true) {
+            displayMenu();
+            System.out.print("Select an operation (1-18): ");
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine(); // consume leftover newline
+
+                if (choice >= 1 && choice <= 18) {
+                    break; // valid input in range
+                } else {
+                    System.out.println("Error: Choice must be between 1 and 18.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Please enter a valid integer between 1 and 18.");
+                scanner.nextLine(); // consume invalid input to avoid infinite loop
+            }
+        }
+
+        return choice;
     }
 
 
-        // --- Menu Display Method ---
+
+    // --- Menu Display Method ---
         public static void displayMenu () {
             String menu = "1.add\n2.subtract\n3.Multiply\n4. divide\n5. Square root\n6. power\n7. sin\n8. cos\n9. tan\n10. natural log\n11. log base 10\n12. absolute\n13. round\n14. ceil\n15. floor\n16. minimum\n17. maximum\n18. exit \n"; //in a sep method
             System.out.println("Options: ");
             System.out.println(menu);
 
         }
+    public static double getValidDouble(Scanner scanner, String prompt) {
+        double value;
+        while (true) {
+            System.out.print(prompt);
+            try {
+                value = Double.parseDouble(scanner.nextLine().trim());
+                break; // valid input, exit loop
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        }
+        return value;
+    }
+        public static List<Double> readNumbers(int len) {
+            List<Double> nums = new ArrayList<>();
+            for (int i = 0; i < len; i++) {
+                nums.add(getValidDouble(scanner, "Enter number " + (i + 1) + ": "));
+            }
+            return nums;
+        }
+
+
+
+
         // --- Basic Arithmetic Methods ---
         public static double add ( double num1, double num2){
+
             return num1 + num2;
         }
         public static double subtract ( double num1, double num2){
@@ -142,6 +194,93 @@ public class ScientificCalculator {
         num2){
             return Math.max(num1, num2);
         }
+    // --- Helper Methods for User Interaction (calling from main's switch-case) ---
+
+    private static void performAddition() {
+        List<Double> nums = readNumbers(2);
+        System.out.println("Result: " + add(nums.get(0), nums.get(1)));
+    }
+
+    private static void performSubtraction() {
+        List<Double> nums = readNumbers(2);
+        System.out.println("Result: " + subtract(nums.get(0), nums.get(1)));
+    }
+
+    private static void performMultiplication() {
+        List<Double> nums = readNumbers(2);
+        System.out.println("Result: " + multiply(nums.get(0), nums.get(1)));
+    }
+
+    private static void performDivision() {
+        List<Double> nums = readNumbers(2);
+        System.out.println("Result: " + divide(nums.get(0), nums.get(1)));
+    }
+
+    private static void performSquareRoot() {
+        double num = getValidDouble(scanner, "Enter the number: ");
+        System.out.println("Result: " + calculateSquareRoot(num));
+    }
+
+    private static void performPower() {
+        List<Double> nums = readNumbers(2);
+        System.out.println("Result: " + calculatePower(nums.get(0), nums.get(1)));
+    }
+
+    private static void performSine() {
+        double num = getValidDouble(scanner, "Enter angle in degrees: ");
+        System.out.println("Result: " + calculateSine(num));
+    }
+
+    private static void performCosine() {
+        double num = getValidDouble(scanner, "Enter angle in degrees: ");
+        System.out.println("Result: " + calculateCosine(num));
+    }
+
+    private static void performTangent() {
+        double num = getValidDouble(scanner, "Enter angle in degrees: ");
+        System.out.println("Result: " + calculateTangent(num));
+    }
+
+    private static void performNaturalLog() {
+        double num = getValidDouble(scanner, "Enter the number: ");
+        System.out.println("Result: " + calculateNaturalLogarithm(num));
+    }
+
+    private static void performLogBase10() {
+        double num = getValidDouble(scanner, "Enter the number: ");
+        System.out.println("Result: " + calculateLogarithmBase10(num));
+    }
+
+    private static void performAbsolute() {
+        double num = getValidDouble(scanner, "Enter the number: ");
+        System.out.println("Result: " + absolute(num));
+    }
+
+    private static void performRound() {
+        double num = getValidDouble(scanner, "Enter the number: ");
+        System.out.println("Result: " + roundNumber(num));
+    }
+
+    private static void performCeiling() {
+        double num = getValidDouble(scanner, "Enter the number: ");
+        System.out.println("Result: " + ceilingNumber(num));
+    }
+
+    private static void performFloor() {
+        double num = getValidDouble(scanner, "Enter the number: ");
+        System.out.println("Result: " + floorNumber(num));
+    }
+
+    private static void performMinimum() {
+        List<Double> nums = readNumbers(2);
+        System.out.println("Result: " + findMin(nums.get(0), nums.get(1)));
+    }
+
+    private static void performMaximum() {
+        List<Double> nums = readNumbers(2);
+        System.out.println("Result: " + findMax(nums.get(0), nums.get(1)));
+    }
+
 
 
 }
